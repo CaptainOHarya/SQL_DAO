@@ -1,4 +1,4 @@
-package repository;
+package ru.netology.sql_dao.repository;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.RowMapper;

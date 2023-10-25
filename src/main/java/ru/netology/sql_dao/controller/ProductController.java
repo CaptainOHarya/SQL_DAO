@@ -1,10 +1,9 @@
-package controller;
+package ru.netology.sql_dao.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import repository.DataBaseRepository;
+import ru.netology.sql_dao.repository.DataBaseRepository;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ create table if not exists netology.CUSTOMERS
     phone_number varchar(25) not null
 
 );
-# drop table netology.CUSTOMERS;
+ # drop table netology.CUSTOMERS;
 
 
 create table if not exists netology.ORDERS
