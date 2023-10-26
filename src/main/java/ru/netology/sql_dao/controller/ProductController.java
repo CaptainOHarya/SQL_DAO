@@ -17,7 +17,6 @@ public class ProductController {
 
     @GetMapping("/products/fetch-product")
     public List<String> getProductName(@RequestParam("name") String name) {
-        //  System.out.println(dataBaseRepository.getProductName(name));
         return dataBaseRepository.getProductName(name);
     }
 }

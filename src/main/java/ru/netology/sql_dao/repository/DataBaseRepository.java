@@ -14,23 +14,24 @@ import java.util.stream.Collectors;
 
 @Repository
 public class DataBaseRepository {
-
+    private String getContentOfScript;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private String requestScript = "requestScript.sql";
 
     public DataBaseRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        getContentOfScript = read("requestScript.sql");
     }
 
     public List<String> getProductName(String name) {
         List<String> result;
-        result = namedParameterJdbcTemplate.query(read(requestScript), Map.of("name", name), new RowMapper<String>() {
+       /* result = namedParameterJdbcTemplate.query(getContentOfScript, Map.of("name", name), new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                // System.out.println(rs.getString("product_name"));
                 return rs.getString("product_name");
             }
-        });
+        });*/
+        result = namedParameterJdbcTemplate.queryForList(getContentOfScript, Map.of("name", name), String.class);
+
         return result;
     }
 
