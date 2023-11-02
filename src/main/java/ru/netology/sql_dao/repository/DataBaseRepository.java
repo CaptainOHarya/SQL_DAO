@@ -1,5 +1,8 @@
 package ru.netology.sql_dao.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,37 +17,15 @@ import java.util.stream.Collectors;
 
 @Repository
 public class DataBaseRepository {
-    private String getContentOfScript;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public DataBaseRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-        getContentOfScript = read("requestScript.sql");
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
 
     public List<String> getProductName(String name) {
-        List<String> result;
-       /* result = namedParameterJdbcTemplate.query(getContentOfScript, Map.of("name", name), new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getString("product_name");
-            }
-        });*/
-        result = namedParameterJdbcTemplate.queryForList(getContentOfScript, Map.of("name", name), String.class);
-
-        return result;
+        Query query = entityManager.createQuery("select o.productName from Order o where lower(o.customer.name) = lower(:name)");
+        query.setParameter("name", name);
+        return query.getResultList();
     }
-
-    private static String read(String scriptFileName) {
-        try (InputStream is = new ClassPathResource(scriptFileName).getInputStream();
-             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is))) {
-            return bufferedReader.lines().collect(Collectors.joining("\n"));
-
-        } catch (IOException e) {
-            throw new RuntimeException();
-
-        }
-    }
-
-
 }

@@ -1,5 +1,5 @@
 create schema if not exists netology;
-create table if not exists netology.CUSTOMERS
+create table if not exists netology.customers
 (
     id int primary key AUTO_INCREMENT,
     name varchar(255) not null,
@@ -8,18 +8,18 @@ create table if not exists netology.CUSTOMERS
     phone_number varchar(25) not null
 
 );
-# drop table netology.CUSTOMERS;
+# drop table netology.customers;
 
 
-create table if not exists netology.ORDERS
+create table if not exists netology.orders
 (
     id int primary key AUTO_INCREMENT,
     date date,
     customer_id int,
     product_name varchar(255) not null,
     amount int check ( amount > 0 ) not null,
-    foreign key (customer_id) references CUSTOMERS (id)
+    foreign key (customer_id) references customers (id)
 
 );
-# drop table netology.ORDERS;
+# drop table netology.orders;
 
