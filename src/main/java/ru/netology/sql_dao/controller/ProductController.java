@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-    DataBaseRepository dataBaseRepository;
+    private final DataBaseRepository dataBaseRepository;
 
     public ProductController(DataBaseRepository dataBaseRepository) {
         this.dataBaseRepository = dataBaseRepository;
